@@ -1,5 +1,5 @@
 import { getUserInfo, getCardList, editUserInfo, editUserAvatar, addNewCard, deleteCardReq, likeCardReq } from "./components/api.js";
-import { createCardElement } from "./components/card.js";
+import { createCardElement, isCardLiked, removeCardElement, updateCardLikes } from "./components/card.js";
 import { openModalWindow, closeModalWindow, setCloseModalWindowEventListeners } from "./components/modal.js";
 import { enableValidation, clearValidation } from "./components/validation.js";
 
@@ -149,12 +149,11 @@ const renderInitCards = (cards) => {
 };
 
 // лайк карточки
-const likeCard = (likeButton, likeCount, cardID) => {
-  const isLiked = likeButton.classList.contains("card__like-button_is-active");
+const likeCard = (cardElement, cardID) => {
+  const isLiked = isCardLiked(cardElement);
   likeCardReq(cardID, isLiked)
     .then((updatedLikeData) => {
-      likeButton.classList.toggle("card__like-button_is-active");
-      likeCount.textContent = updatedLikeData.likes.length;
+      updateCardLikes(cardElement, updatedLikeData.likes, userID);
     })
     .catch((err) => {
       console.log(err);
@@ -165,7 +164,7 @@ const likeCard = (likeButton, likeCount, cardID) => {
 const deleteCard = (cardElement, cardID) => {
   deleteCardReq(cardID)
     .then(() => {
-      cardElement.remove();
+      removeCardElement(cardElement);
     })
     .catch((err) => {
       console.log(err);
@@ -271,4 +270,3 @@ const createInfoString = (term, description) => {
   definitionTemp.querySelector('.popup__info-description').textContent = description;
   return definitionTemp;
 };
-
