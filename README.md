@@ -10,15 +10,16 @@
 
 ## Ссылка на мой сайт проекта:
 
-https://goaspers.github.io/mesto-production/
+https://goaspers.github.io/mesto-ad/
 
 ## Команды для запуска
 
 ```bash
 npm run dev # — запускается локальный сервер разработки и страница проекта автоматически открывается в браузере;
 npm run build # — проект собирается и в корне проекта появляется директория dist;
-npm run deploy # — собранный проект публикуется на GitHub Pages.
 ```
+
+Публикация на GitHub Pages выполняется автоматически после `git push origin main`.
 
 Проект публиковался на удалённый репозиторий с использоанием комманд:
 
@@ -27,4 +28,3 @@ git add .
 git commit -m ""
 git push origin main
 ```
-
